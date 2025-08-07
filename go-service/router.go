@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
 	"go-service/handlers"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func InitializeRouter() *mux.Router {
@@ -11,8 +12,6 @@ func InitializeRouter() *mux.Router {
 	r.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("pong"))
 	}).Methods("GET")
-
 	r.HandleFunc("/api/v1/students/{id}/report", handlers.GenerateStudentReport).Methods("GET")
-
 	return r
 }
