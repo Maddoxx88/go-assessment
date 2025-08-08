@@ -7,10 +7,12 @@ const generateHashedPassword = async (password) => {
 }
 
 const verifyPassword = async (passwordFromDb, passwordFromUser) => {
+
     const isPasswordValid = await argon2.verify(passwordFromDb, passwordFromUser);
-    if (!isPasswordValid) {
-        throw new ApiError(400, "Invalid credential");
-    }
+    console.log('Verification result:', isPasswordValid);
+    
+    // RETURN the result instead of throwing
+    return isPasswordValid;
 }
 
 module.exports = {
