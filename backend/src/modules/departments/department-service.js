@@ -52,12 +52,20 @@ const processDeleteDepartmentById = async (id) => {
   return { message: "Department deleted successfully" };
 };
 
-module.exports = departmentModuleHandler(async () => {
-  return {
-    processGetAllDepartments,
-    processGetDepartmentById,
-    processUpdateDepartmentById,
-    processDeleteDepartmentById,
-    processAddNewDepartment,
-  };
-});
+module.exports = {
+  processGetAllDepartments,
+  processGetDepartmentById,
+  processUpdateDepartmentById,
+  processDeleteDepartmentById,
+  processAddNewDepartment,
+};
+
+// module.exports = departmentModuleHandler(async () => {
+//   return {
+//     processGetAllDepartments,
+//     processGetDepartmentById,
+//     processUpdateDepartmentById,
+//     processDeleteDepartmentById,
+//     processAddNewDepartment,
+//   };
+// });
