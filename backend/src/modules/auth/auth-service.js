@@ -35,13 +35,18 @@ const USER_ALREADY_ACTIVE = "User already in active status. Please login.";
 const UNABLE_TO_VERIFY_EMAIL = "Unable to verify email";
 const login = async (username, passwordFromUser) => {
   const client = await db.connect();
+  console.log("✅ DB client connected in auth service");
   try {
     await client.query("BEGIN");
+    console.log("🔐 Login attempt:", { username });
 
     const user = await findUserByUsername(username, client);
     if (!user) {
+      console.warn("⚠️ No user found with username:", username);
       throw new ApiError(400, "Invalid credential");
     }
+
+    console.log("✅ Found user:", user.email);
 
     const {
       id: userId,
@@ -55,7 +60,14 @@ const login = async (username, passwordFromUser) => {
       throw new ApiError(403, "Your account is disabled");
     }
 
-    await verifyPassword(passwordFromDB, passwordFromUser);
+    const passwordValid = await verifyPassword(
+      passwordFromDB,
+      passwordFromUser
+    );
+    if (!passwordValid) {
+      console.warn("⚠️ Invalid password for:", username);
+      throw new ApiError(400, "Invalid credential");
+    }
 
     const roleName = await getRoleNameByRoleId(role_id, client);
     const csrfToken = uuidV4();
@@ -92,6 +104,7 @@ const login = async (username, passwordFromUser) => {
 
     return { accessToken, refreshToken, csrfToken, accountBasic };
   } catch (error) {
+    console.error("❌ Login error:", error);
     await client.query("ROLLBACK");
     throw error;
   } finally {
