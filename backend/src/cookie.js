@@ -1,7 +1,7 @@
 const { env } = require("./config");
 
 const cookieOptions = {
-  secure: true,
+  secure: false,
   sameSite: "lax",
   domain: env.COOKIE_DOMAIN,
 };
