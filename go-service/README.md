@@ -88,21 +88,21 @@ Error: tokens not found in login response cookies
 
 Possible causes:
 
-Backend sends cookies with Secure flag over HTTP
+- Backend sends cookies with Secure flag over HTTP
 
-Backend not running
+- Backend not running
 
 Fix:
 
-Remove Secure flag from backend cookies for local dev OR run backend over HTTPS.
+- Remove Secure flag from backend cookies for local dev OR run backend over HTTPS.
 
-Double-check .env values.
+- Double-check .env values.
 
 Check cookies manually:
 
-Test login API in Postman and inspect Set-Cookie headers.
+- Test login API in Postman and inspect Set-Cookie headers.
 
-🌐 Endpoints
+## 🌐 Endpoints
 
 GET ```/ping```
 
